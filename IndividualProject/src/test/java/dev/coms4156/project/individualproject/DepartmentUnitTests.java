@@ -89,7 +89,6 @@ public class DepartmentUnitTests {
 
   @Test
   public void toStringTest(){
-    //System.out.println("PRINT:" + testDeptToString.toString());
     String expectedResult = "3082 1001: \n" +
             "Instructor: Kenneth Shepard; Location: 1205 MUDD; Time: 4:10-6:40\n";
     assertEquals(expectedResult, testDeptToString.toString());
