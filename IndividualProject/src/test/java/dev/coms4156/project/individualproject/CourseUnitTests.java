@@ -28,72 +28,71 @@ public class CourseUnitTests {
   }
 
   @Test
-  public void getCourseLocationTest() {
+  public void getCourseLocationTest(){
     String expectedResult = "417 IAB";
     assertEquals(expectedResult, testCourse.getCourseLocation());
   }
 
   @Test
-  public void getInstructorNameTest() {
+  public void getInstructorNameTest(){
     String expectedResult = "Griffin Newbold";
     assertEquals(expectedResult, testCourse.getInstructorName());
   }
 
   @Test
-  public void getCourseTimeSlotTest() {
+  public void getCourseTimeSlotTest(){
     String expectedResult = "11:40-12:55";
     assertEquals(expectedResult, testCourse.getCourseTimeSlot());
   }
 
   @Test
-  public void reassignInstructorTest() {
+  public void reassignInstructorTest(){
     String expectedResult = "Gail Kaiser";
     testCourse2.reassignInstructor("Gail Kaiser");
     assertEquals(expectedResult, testCourse2.getInstructorName());
   }
 
   @Test
-  public void reassignTimeTest() {
+  public void reassignTimeTest(){
     String expectedResult = "4:10-6:40";
     testCourse2.reassignTime("4:10-6:40");
     assertEquals(expectedResult, testCourse2.getCourseTimeSlot());
   }
 
   @Test
-  public void reassignLocationTest() {
+  public void reassignLocationTest(){
     String expectedResult = "501 NWC";
     testCourse2.reassignLocation("501 NWC");
     assertEquals(expectedResult, testCourse2.getCourseLocation());
   }
 
   @Test
-  public void isCourseFullTest() {
+  public void isCourseFullTest(){
     assertEquals(true, testCourse.isCourseFull());
   }
 
   @Test
-  public void setEnrolledStudentCountTest() {
+  public void setEnrolledStudentCountTest(){
     testCourse2.setEnrolledStudentCount(0);
-    assertEquals(false, testCourse2.isCourseFull());
+    assertEquals(false,testCourse2.isCourseFull());
   }
 
   @Test
-  public void enrollStudentTest() {
+  public void enrollStudentTest(){
     testCourse2.setEnrolledStudentCount(0);
-    assertEquals(false, testCourse.enrollStudent());
-    assertEquals(true, testCourse2.enrollStudent());
+    assertEquals(false,testCourse.enrollStudent());
+    assertEquals(true,testCourse2.enrollStudent());
   }
 
   @Test
-  public void dropStudentTest() {
+  public void dropStudentTest(){
     testCourse2.setEnrolledStudentCount(0);
-    assertEquals(true, testCourse.dropStudent());
-    assertEquals(false, testCourse2.dropStudent());
+    assertEquals(true,testCourse.dropStudent());
+    assertEquals(false,testCourse2.dropStudent());
   }
 
 
   /** The test course instance used for testing. */
-  public static Course testCourse;
-  public static Course testCourse2;
+  public static Course testCourse, testCourse2;
 }
 
