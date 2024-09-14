@@ -8,13 +8,6 @@ import static org.mockito.Mockito.when;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -223,12 +216,149 @@ public class RouteControllerTests {
             .andExpect(content().string("Department Not Found"));
   }
 
+  @Test
+  public void removeMajorFromDeptTest() throws Exception {
+    mockMvc.perform(patch("/removeMajorFromDept")
+                    .param("deptCode", "COMS"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Attribute was updated or is at minimum"));
+    mockMvc.perform(get("/getMajorCountFromDept")
+                    .param("deptCode", "COMS"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("There are: 2699 majors in the department"));
+  }
+
+  @Test
+  public void removeMajorFromDeptNotFoundTest() throws Exception {
+    mockMvc.perform(patch("/removeMajorFromDept")
+                    .param("deptCode", "1111"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Department Not Found"));
+  }
+
+  @Test
+  public void dropStudentTest() throws Exception {
+    mockMvc.perform(patch("/dropStudentFromCourse")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Student has been dropped."));
+  }
+
+  @Test
+  public void dropStudentNotFoundTest() throws Exception {
+    mockMvc.perform(patch("/dropStudentFromCourse")
+                    .param("deptCode", "1111")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
+  @Test
+  public void setEnrollmentCountTest() throws Exception {
+    mockMvc.perform(patch("/setEnrollmentCount")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004")
+                    .param("count", "0"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Attributed was updated successfully."));
+    mockMvc.perform(patch("/dropStudentFromCourse")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().string("Student has not been dropped."));
+  }
+
+  @Test
+  public void setEnrollmentCountNotFoundTest() throws Exception {
+    mockMvc.perform(patch("/setEnrollmentCount")
+                    .param("deptCode", "1111")
+                    .param("courseCode", "1004")
+                    .param("count", "0"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
+  @Test
+  public void changeCourseTimeTest() throws Exception {
+    mockMvc.perform(patch("/changeCourseTime")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004")
+                    .param("time", "4:10-5:25"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Attributed was updated successfully."));
+    mockMvc.perform(get("/findCourseTime")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("The course meets at: 4:10-5:25 some time "));
+  }
+
+  @Test
+  public void changeCourseTimeNotFoundTest() throws Exception {
+    mockMvc.perform(patch("/changeCourseTime")
+                    .param("deptCode", "1111")
+                    .param("courseCode", "1004")
+                    .param("time", "0"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
+  @Test
+  public void changeCourseTeacherTest() throws Exception {
+    mockMvc.perform(patch("/changeCourseTeacher")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004")
+                    .param("teacher", "Brian Borowski"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Attributed was updated successfully."));
+    mockMvc.perform(get("/findCourseInstructor")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Brian Borowski is the instructor for the course."));
+  }
+
+  @Test
+  public void changeCourseTeacherNotFoundTest() throws Exception {
+    mockMvc.perform(patch("/changeCourseTeacher")
+                    .param("deptCode", "1111")
+                    .param("courseCode", "1004")
+                    .param("teacher", "Brian Borowski"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
+  @Test
+  public void changeCourseLocationTest() throws Exception {
+    mockMvc.perform(patch("/changeCourseLocation")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004")
+                    .param("location", "309 HAV"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Attributed was updated successfully."));
+    mockMvc.perform(get("/findCourseLocation")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("309 HAV is where the course is located."));
+  }
+
+  @Test
+  public void changeCourseLocationNotFoundTest() throws Exception {
+    mockMvc.perform(patch("/changeCourseLocation")
+                    .param("deptCode", "1111")
+                    .param("courseCode", "1004")
+                    .param("location", "309 HAV"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
   @Autowired
   private MockMvc mockMvc;
   @Autowired
   private ObjectMapper deptMapper;
   @MockBean
   private MyFileDatabase myFileDatabase;
-  private Department testDepartment;
   private HashMap<String, Department> depMap;
 }
