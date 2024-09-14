@@ -1,13 +1,12 @@
 package dev.coms4156.project.individualproject;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.mockito.Mockito.when;
-
-import java.util.HashMap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,11 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(controllers = RouteController.class)
 public class RouteControllerTests {
 
+  /**
+   * This class contains tests for the RouteController class.
+   */
   @BeforeEach
-  public void setUp(){
+  public void setUp() {
     depMap = new HashMap<>();
     myFileDatabase = new MyFileDatabase(0, "./data.txt");
     IndividualProjectApplication.overrideDatabase(myFileDatabase);
@@ -34,11 +36,15 @@ public class RouteControllerTests {
   public void indexTest() throws Exception {
     mockMvc.perform(get("/"))
             .andExpect(status().isOk())
-            .andExpect(content().string("Welcome, in order to make an API call direct your browser or Postman to an endpoint "
-                    + "\n\n This can be done using the following format: \n\n http:127.0.0.1:8080/endpoint?arg=value"));
+            .andExpect(content()
+                    .string("Welcome, in order to make an API "
+                            + "call direct your browser or Postman to an endpoint "
+                    + "\n\n This can be done using the following format: \n\n "
+                            + "http:127.0.0.1:8080/endpoint?arg=value"));
   }
+
   @Test
-  public void RetrieveDepartmentNotFoundTest() throws Exception {
+  public void retrieveDepartmentNotFoundTest() throws Exception {
     mockMvc.perform(get("/retrieveDept")
                     .param("deptCode", "1000"))
             .andExpect(status().isNotFound())
@@ -46,8 +52,8 @@ public class RouteControllerTests {
   }
 
   @Test
-  public void RetrieveDepartmentFoundTest() throws Exception {
-    depMap =IndividualProjectApplication
+  public void retrieveDepartmentFoundTest() throws Exception {
+    depMap = IndividualProjectApplication
             .myFileDatabase.getDepartmentMapping();
     mockMvc.perform(get("/retrieveDept")
                     .param("deptCode", "COMS"))
@@ -56,7 +62,7 @@ public class RouteControllerTests {
   }
 
   @Test
-  public void RetrieveCourseNotFoundTest() throws Exception {
+  public void retrieveCourseNotFoundTest() throws Exception {
     mockMvc.perform(get("/retrieveCourse")
                     .param("deptCode", "1000")
                     .param("courseCode", "1004"))
@@ -70,7 +76,7 @@ public class RouteControllerTests {
   }
 
   @Test
-  public void RetrieveCourseFoundTest() throws Exception {
+  public void retrieveCourseFoundTest() throws Exception {
     HashMap<String, Course> coursesMap;
     coursesMap = IndividualProjectApplication.myFileDatabase
             .getDepartmentMapping().get("COMS").getCourseSelection();

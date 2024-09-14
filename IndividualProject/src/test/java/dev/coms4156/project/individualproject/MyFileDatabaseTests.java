@@ -28,7 +28,7 @@ public class MyFileDatabaseTests {
    */
   @BeforeAll
   public static void setupDepartmentForTesting() {
-    testDb = new MyFileDatabase(1, "/Users/ireneisabug/Desktop/4156/4156-Miniproject-2024-Students-Java/IndividualProject/data.txt");
+    testDb = new MyFileDatabase(1, "./data.txt");
     testDb2 = new MyFileDatabase(1, "data.java");
     testDb3 = new MyFileDatabase(3, "testdata.txt");
 
@@ -70,7 +70,7 @@ public class MyFileDatabaseTests {
   @Test
   public void deSerializeObjectFromFileTest() {
     assertEquals(null, testDb2.deSerializeObjectFromFile());
-    System.out.println("Print:"+testDb.deSerializeObjectFromFile());
+    System.out.println("Print:" + testDb.deSerializeObjectFromFile());
   }
 
   /** The testdata.txt output can be find in IndividualProject/testdata.txt. */
