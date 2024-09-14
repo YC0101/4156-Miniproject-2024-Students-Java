@@ -1,6 +1,6 @@
 package dev.coms4156.project.individualproject;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.Mockito.when;
@@ -34,6 +34,8 @@ public class RouteControllerTests {
   public void setUp(){
     testDepartment = new Department("ELEN", new HashMap<>(), "Ioannis Kymissis", 250);
     depMap = new HashMap<>();
+    myFileDatabase = new MyFileDatabase(0, "./data.txt");
+    IndividualProjectApplication.overrideDatabase(myFileDatabase);
   }
 
   @Test
@@ -87,6 +89,139 @@ public class RouteControllerTests {
             .andExpect(content().string(coursesMap.get("1004").toString()));
   }
 
+  @Test
+  public void isCourseFullTest() throws Exception {
+    mockMvc.perform(get("/isCourseFull")
+                    .param("deptCode", "IEOR")
+                    .param("courseCode", "4106"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("true"));
+    mockMvc.perform(get("/isCourseFull")
+                    .param("deptCode", "IEOR")
+                    .param("courseCode", "4540"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("false"));
+  }
+
+  @Test
+  public void isCourseFullNotFoundTest() throws Exception {
+    mockMvc.perform(get("/isCourseFull")
+                    .param("deptCode", "1111")
+                    .param("courseCode", "4106"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+    mockMvc.perform(get("/isCourseFull")
+                    .param("deptCode", "IEOR")
+                    .param("courseCode", "454011"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
+  @Test
+  public void getMajorCtFromDeptTest() throws Exception {
+    mockMvc.perform(get("/getMajorCountFromDept")
+                    .param("deptCode", "COMS"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("There are: 2700 majors in the department"));
+  }
+
+  @Test
+  public void getMajorCtFromDeptNotFoundTest() throws Exception {
+    mockMvc.perform(get("/getMajorCountFromDept")
+                    .param("deptCode", "1111"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Department Not Found"));
+  }
+
+  @Test
+  public void identifyDeptChairTest() throws Exception {
+    mockMvc.perform(get("/idDeptChair")
+                    .param("deptCode", "COMS"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Luca Carloni is the department chair."));
+  }
+
+  @Test
+  public void identifyDeptChairNotFoundTest() throws Exception {
+    mockMvc.perform(get("/idDeptChair")
+                    .param("deptCode", "1111"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Department Not Found"));
+  }
+
+  @Test
+  public void findCourseLocationTest() throws Exception {
+    mockMvc.perform(get("/findCourseLocation")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("417 IAB is where the course is located."));
+  }
+
+  @Test
+  public void findCourseLocationNotFoundTest() throws Exception {
+    mockMvc.perform(get("/findCourseLocation")
+                    .param("deptCode", "1111")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
+  @Test
+  public void findCourseInstructorTest() throws Exception {
+    mockMvc.perform(get("/findCourseInstructor")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Adam Cannon is the instructor for the course."));
+  }
+
+  @Test
+  public void findCourseInstructorNotFoundTest() throws Exception {
+    mockMvc.perform(get("/findCourseInstructor")
+                    .param("deptCode", "1111")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
+  @Test
+  public void findCourseTimeTest() throws Exception {
+    mockMvc.perform(get("/findCourseTime")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("The course meets at: 11:40-12:55 some time "));
+  }
+
+  @Test
+  public void findCourseTimeNotFoundTest() throws Exception {
+    mockMvc.perform(get("/findCourseTime")
+                    .param("deptCode", "1111")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
+  @Test
+  public void addMajorToDeptTest() throws Exception {
+    mockMvc.perform(patch("/addMajorToDept")
+                    .param("deptCode", "COMS"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Attribute was updated successfully"));
+    mockMvc.perform(get("/getMajorCountFromDept")
+                    .param("deptCode", "COMS"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("There are: 2701 majors in the department"));
+  }
+
+  @Test
+  public void addMajorToDeptNotFoundTest() throws Exception {
+    mockMvc.perform(patch("/addMajorToDept")
+                    .param("deptCode", "1111"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Department Not Found"));
+  }
 
   @Autowired
   private MockMvc mockMvc;
