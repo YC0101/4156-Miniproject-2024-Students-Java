@@ -25,7 +25,6 @@ public class RouteControllerTests {
 
   @BeforeEach
   public void setUp(){
-    testDepartment = new Department("ELEN", new HashMap<>(), "Ioannis Kymissis", 250);
     depMap = new HashMap<>();
     myFileDatabase = new MyFileDatabase(0, "./data.txt");
     IndividualProjectApplication.overrideDatabase(myFileDatabase);
