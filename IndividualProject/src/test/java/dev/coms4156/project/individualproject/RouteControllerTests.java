@@ -88,6 +88,23 @@ public class RouteControllerTests {
   }
 
   @Test
+  public void retrieveCoursesNotFoundTest() throws Exception {
+    mockMvc.perform(get("/retrieveCourses")
+                    .param("courseCode", "100411"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
+  @Test
+  public void retrieveCoursesFoundTest() throws Exception {
+    mockMvc.perform(get("/retrieveCourses")
+                    .param("courseCode", "1001"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("PSYC 1001")))
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("PHYS 1001")));
+  }
+
+  @Test
   public void isCourseFullTest() throws Exception {
     mockMvc.perform(get("/isCourseFull")
                     .param("deptCode", "IEOR")

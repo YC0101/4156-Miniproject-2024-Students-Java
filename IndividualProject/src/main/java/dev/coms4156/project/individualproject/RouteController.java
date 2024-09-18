@@ -115,7 +115,7 @@ public class RouteController {
       for (String deptCode : departmentMapping.keySet()) {
         ResponseEntity<?> courseResponse = retrieveCourse(deptCode, courseCode);
         if (courseResponse.getStatusCode() == HttpStatus.OK) {
-          coursesListBuilder.append(courseResponse.getBody()).append("\n");
+          coursesListBuilder.append(deptCode).append(" ").append(courseCode).append("\n");
         }
       }
 
