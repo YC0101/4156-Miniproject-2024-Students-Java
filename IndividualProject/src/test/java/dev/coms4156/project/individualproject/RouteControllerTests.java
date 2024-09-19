@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -380,17 +379,16 @@ public class RouteControllerTests {
             .andExpect(content().string("Course Not Found"));
   }
 
-//  @Test
-//  public void testHandleException() throws Exception {
-//    // Mock the database to throw a RuntimeException
-//    when(myFileDatabase.getDepartmentMapping()).thenThrow(new RuntimeException("Simulated exception"));
-//
-//    // Perform GET request to /retrieveCourses, expecting an internal server error due to the exception
-//    mockMvc.perform(get("/retrieveCourses")
-//                    .param("courseCode", "1004"))
-//            .andExpect(status().isInternalServerError())  // Expect 500 Internal Server Error
-//            .andExpect(content().string("An error occurred while processing the request."));  // Expect error message
-//  }
+  //  @Test
+  //  public void testHandleException() throws Exception {
+  //    when(myFileDatabase.getDepartmentMapping())
+  //          .thenThrow(new RuntimeException("Simulated exception"));
+  //
+  //    mockMvc.perform(get("/retrieveCourses")
+  //                    .param("courseCode", "1004"))
+  //            .andExpect(status().isInternalServerError())
+  //            .andExpect(content().string("An error occurred."));
+  //  }
 
   @Autowired
   private MockMvc mockMvc;
