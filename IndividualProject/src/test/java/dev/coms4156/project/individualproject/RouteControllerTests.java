@@ -1,16 +1,20 @@
 package dev.coms4156.project.individualproject;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -375,6 +379,18 @@ public class RouteControllerTests {
             .andExpect(status().isNotFound())
             .andExpect(content().string("Course Not Found"));
   }
+
+//  @Test
+//  public void testHandleException() throws Exception {
+//    // Mock the database to throw a RuntimeException
+//    when(myFileDatabase.getDepartmentMapping()).thenThrow(new RuntimeException("Simulated exception"));
+//
+//    // Perform GET request to /retrieveCourses, expecting an internal server error due to the exception
+//    mockMvc.perform(get("/retrieveCourses")
+//                    .param("courseCode", "1004"))
+//            .andExpect(status().isInternalServerError())  // Expect 500 Internal Server Error
+//            .andExpect(content().string("An error occurred while processing the request."));  // Expect error message
+//  }
 
   @Autowired
   private MockMvc mockMvc;
