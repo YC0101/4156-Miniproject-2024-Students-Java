@@ -1,5 +1,6 @@
 package dev.coms4156.project.individualproject;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -9,8 +10,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -85,6 +88,23 @@ public class RouteControllerTests {
                     .param("courseCode", "1004"))
             .andExpect(status().isOk())
             .andExpect(content().string(coursesMap.get("1004").toString()));
+  }
+
+  @Test
+  public void retrieveCoursesNotFoundTest() throws Exception {
+    mockMvc.perform(get("/retrieveCourses")
+                    .param("courseCode", "100411"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
+  @Test
+  public void retrieveCoursesFoundTest() throws Exception {
+    mockMvc.perform(get("/retrieveCourses")
+                    .param("courseCode", "1001"))
+            .andExpect(status().isOk())
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("PSYC 1001")))
+            .andExpect(content().string(org.hamcrest.Matchers.containsString("PHYS 1001")));
   }
 
   @Test
@@ -358,6 +378,17 @@ public class RouteControllerTests {
             .andExpect(status().isNotFound())
             .andExpect(content().string("Course Not Found"));
   }
+
+  //  @Test
+  //  public void testHandleException() throws Exception {
+  //    when(myFileDatabase.getDepartmentMapping())
+  //          .thenThrow(new RuntimeException("Simulated exception"));
+  //
+  //    mockMvc.perform(get("/retrieveCourses")
+  //                    .param("courseCode", "1004"))
+  //            .andExpect(status().isInternalServerError())
+  //            .andExpect(content().string("An error occurred."));
+  //  }
 
   @Autowired
   private MockMvc mockMvc;
