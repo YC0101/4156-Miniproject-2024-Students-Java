@@ -271,10 +271,37 @@ public class RouteControllerTests {
   }
 
   @Test
+  public void enrollStudentTest() throws Exception {
+    mockMvc.perform(patch("/enrollStudentInCourse")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("Student has been enrolled."));
+  }
+
+  @Test
+  public void enrollStudentFailTest() throws Exception {
+    mockMvc.perform(patch("/enrollStudentInCourse")
+                    .param("deptCode", "IEOR")
+                    .param("courseCode", "2500"))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().string("Student has not been enrolled."));
+  }
+
+  @Test
   public void dropStudentNotFoundTest() throws Exception {
     mockMvc.perform(patch("/dropStudentFromCourse")
                     .param("deptCode", "1111")
                     .param("courseCode", "1004"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string("Course Not Found"));
+  }
+
+  @Test
+  public void enrollStudentNotFoundTest() throws Exception {
+    mockMvc.perform(patch("/enrollStudentInCourse")
+                    .param("deptCode", "11111")
+                    .param("courseCode", "250011"))
             .andExpect(status().isNotFound())
             .andExpect(content().string("Course Not Found"));
   }
