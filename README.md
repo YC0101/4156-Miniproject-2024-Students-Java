@@ -5,7 +5,7 @@ Please follow the assignment specifications on Courseworks when completing this 
 The Code is written using IntelliJ IDEA. And mvn/jaCoco are run in IntelliJ IDEA as well.
 
 HowToTestNote:
-1. Tests can be run with "mvn clean test"
+1. Tests can be run with "mvn clean test", I run it inside IntelliJ IDEA using the side buttons.
 2. deSerializeObjectFromFileTest() in MyFileDatabasedTests will give System.out.print in console for one to check the read file status.
 3. saveContentsToFileTest() will create a testdata.txt for user to check save file output.
 
