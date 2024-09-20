@@ -12,3 +12,4 @@ HowToTestNote:
 I2 implementation:
 
 1. retrieveCourses takes a courseCode(int) and return the String representation of all the courses with the specified course code or displays the proper error message in response to the request.
+2. enrollStudentInCourse endpoint attempt to enroll a student in a course specified by the department id as well as the course code.It takes department id as well as the course code and return ResponseEntity<> OK if enroll is successful; BadRequest if student can't be enrolled; Not Found if course is not found.
