@@ -28,10 +28,7 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      uses: YC0101/4156-Miniproject-2024-Students-Java@master
-      working-directory: ./IndividualProject
-      run: mvn -B package --file pom.xml
+
 
     # Run maven tests
     - name: Run tests with Maven
