@@ -23,7 +23,6 @@ jobs:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
       uses: actions/setup-java@v3
-      working-directory: ./IndividualProject
       with:
         java-version: '21'
         distribution: 'temurin'
@@ -32,4 +31,6 @@ jobs:
 
     # Run maven tests
     - name: Run tests with Maven
-      uses: mvn clean test
+      run: |
+        cd ./IndividualProject
+        mvn clean test
