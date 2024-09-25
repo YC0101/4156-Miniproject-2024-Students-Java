@@ -25,10 +25,11 @@ jobs:
       uses: actions/setup-java@v4
       working-directory: ./IndividualProject
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
+      working-directory: ./IndividualProject
       run: mvn -B package --file pom.xml
 
     # Run maven tests
