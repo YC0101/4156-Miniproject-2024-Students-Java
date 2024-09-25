@@ -28,8 +28,23 @@ All the test file are under the directory 'src/test'.
 # Endpoints
 
 **GET/retrieveDept**
+  - Parameters: deptCode (String)
+  - Return: object containing either the details of the Department with provided info.
+  - Upon Success: HTTP 200 Status Code is returned along with the details of the department if it exist.
+  - Upon Failure: HTTP 404 Status Code with "Department Not Found" if it doesn't exist.
+
 **GET/retrieveCourse**
+  - Parameters: deptCode (String), courseCode (int)
+  - Return: object containing the details of the course with provided info.
+  - Upon Success: HTTP 200 Status Code is returned along with the details of the course if it exist.
+  - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
+
 **GET/retrieveCourses**
+  - Parameters: courseCode (int)
+  - Return: the String representation of all the courses with the specified course code.
+  - Upon Success: HTTP 200 Status Code is returned along with all the courses with the specified course code if they exist.
+  - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
+
 **GET/isCourseFull**
 **GET/getMajorCountFromDept**
 **GET/idDeptChair**
