@@ -53,6 +53,9 @@ All the test file are under the directory 'src/test'.
 3. Added .idea/ and .DS_Store to gitignore 
 
 # I3 implementation:
-1. Demo video link can be found in DeployDemoVideoLink.txt
+1. Demo video link can be found in DeployDemoVideoLink.txt or https://youtu.be/nyrna03pv9I 
 2. Google GCP target url: https://individual-project-436720.ue.r.appspot.com 
 3. Rearrange this README file you are reading ;D
+4. Instance screenshots: 
+    ![Screenshots of instance.](/screenshots/instance2.png)
+    ![Screenshots of instance.](/screenshots/instance1.png)
