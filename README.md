@@ -36,7 +36,7 @@ All the test file are under the directory 'src/test'.
 **GET/retrieveCourse**
   - Parameters: deptCode (String), courseCode (int)
   - Return: object containing the details of the course with provided info.
-  - Upon Success: HTTP 200 Status Code is returned along with the details of the course if it exist.
+  - Upon Success: HTTP 200 Status Code is returned along with the details of the course if it exists.
   - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
 
 **GET/retrieveCourses**
@@ -46,6 +46,11 @@ All the test file are under the directory 'src/test'.
   - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
 
 **GET/isCourseFull**
+  - Parameters: deptCode (String), courseCode (int)
+  - Return: whether the course has at minimum reached its enrollmentCapacity.
+  - Upon Success: HTTP 200 Status Code is returned along with whether the course has at minimum reached its enrollmentCapacity if it exists.
+  - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
+
 **GET/getMajorCountFromDept**
 **GET/idDeptChair**
 **GET/findCourseLocation**
