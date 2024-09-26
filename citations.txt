@@ -3,3 +3,5 @@ Reference Youtube tutorial: https://www.youtube.com/watch?v=BZBFw6fBeIU&list=PL8
 https://aws.amazon.com/what-is/unit-testing/
 https://google.github.io/styleguide/javaguide.html#s3.3-import-statements
 https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html#principles
+
+README format: https://github.com/griffinnewbold/COMS-4156-Service
