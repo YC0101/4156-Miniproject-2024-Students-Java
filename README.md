@@ -52,11 +52,41 @@ All the test file are under the directory 'src/test'.
   - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
 
 **GET/getMajorCountFromDept**
+  - Parameters: deptCode (String)
+  - Return: string displaying the number of majors in the specified department.
+  - Upon Success: HTTP 200 Status Code is returned along with the number of majors in the specified department if it exists.
+  - Upon Failure: HTTP 404 Status Code with "Department Not Found" if it doesn't exist.
+
 **GET/idDeptChair**
+  - Parameters: deptCode (String)
+  - Return: string displaying the department chair for the specified department.
+  - Upon Success: HTTP 200 Status Code is returned along with the department chair for the specified department if it exists.
+  - Upon Failure: HTTP 404 Status Code with "Department Not Found" if it doesn't exist.
+
 **GET/findCourseLocation**
+  - Parameters: deptCode (String), courseCode (int)
+  - Return: string displaying the location for the specified course.
+  - Upon Success: HTTP 200 Status Code is returned along with the location for the specified course if it exists.
+  - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
+
 **GET/findCourseInstructor**
+  - Parameters: deptCode (String), courseCode (int)
+  - Return: string displaying the instructor for the specified course.
+  - Upon Success: HTTP 200 Status Code is returned along with the instructor for the specified course if it exists.
+  - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
+
 **GET/findCourseTime**
+  - Parameters: deptCode (String), courseCode (int)
+  - Return: string displaying the time for the specified course.
+  - Upon Success: HTTP 200 Status Code is returned along with the time for the specified course if it exists.
+  - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
+
 **Patch/addMajorToDept**
+  - Parameters: deptCode (String)
+  - Return: string displaying whether add is successful or not.
+  - Upon Success: HTTP 200 Status Code is returned along with "Attribute was updated successfully" if it exists.
+  - Upon Failure: HTTP 404 Status Code with "Department Not Found" if it doesn't exist.
+
 **Patch/removeMajorFromDept**
 **Patch/dropStudentFromCourse**
 **Patch/enrollStudentInCourse**
