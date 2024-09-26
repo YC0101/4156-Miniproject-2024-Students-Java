@@ -41,7 +41,7 @@ All the test file are under the directory 'src/test'.
 
 **GET/retrieveCourses**
   - Parameters: courseCode (int)
-  - Return: the String representation of all the courses with the specified course code.
+  - Return: object with the String representation of all the courses with the specified course code.
   - Upon Success: HTTP 200 Status Code is returned along with all the courses with the specified course code if they exist.
   - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
 
@@ -53,48 +53,81 @@ All the test file are under the directory 'src/test'.
 
 **GET/getMajorCountFromDept**
   - Parameters: deptCode (String)
-  - Return: string displaying the number of majors in the specified department.
+  - Return: object with string displaying the number of majors in the specified department.
   - Upon Success: HTTP 200 Status Code is returned along with the number of majors in the specified department if it exists.
   - Upon Failure: HTTP 404 Status Code with "Department Not Found" if it doesn't exist.
 
 **GET/idDeptChair**
   - Parameters: deptCode (String)
-  - Return: string displaying the department chair for the specified department.
+  - Return: object with string displaying the department chair for the specified department.
   - Upon Success: HTTP 200 Status Code is returned along with the department chair for the specified department if it exists.
   - Upon Failure: HTTP 404 Status Code with "Department Not Found" if it doesn't exist.
 
 **GET/findCourseLocation**
   - Parameters: deptCode (String), courseCode (int)
-  - Return: string displaying the location for the specified course.
+  - Return: object with string displaying the location for the specified course.
   - Upon Success: HTTP 200 Status Code is returned along with the location for the specified course if it exists.
   - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
 
 **GET/findCourseInstructor**
   - Parameters: deptCode (String), courseCode (int)
-  - Return: string displaying the instructor for the specified course.
+  - Return: object with string displaying the instructor for the specified course.
   - Upon Success: HTTP 200 Status Code is returned along with the instructor for the specified course if it exists.
   - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
 
 **GET/findCourseTime**
   - Parameters: deptCode (String), courseCode (int)
-  - Return: string displaying the time for the specified course.
+  - Return: object with string displaying the time for the specified course.
   - Upon Success: HTTP 200 Status Code is returned along with the time for the specified course if it exists.
   - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
 
 **Patch/addMajorToDept**
   - Parameters: deptCode (String)
-  - Return: string displaying whether add is successful or not.
+  - Return: object with string displaying whether add is successful or not.
   - Upon Success: HTTP 200 Status Code is returned along with "Attribute was updated successfully" if it exists.
   - Upon Failure: HTTP 404 Status Code with "Department Not Found" if it doesn't exist.
 
 **Patch/removeMajorFromDept**
-**Patch/dropStudentFromCourse**
-**Patch/enrollStudentInCourse**
-**Patch/setEnrollmentCount**
-**Patch/changeCourseTime**
-**Patch/changeCourseTeacher**
-**Patch/changeCourseLocation**
+  - Parameters: deptCode (String)
+  - Return: object with string displaying whether remove is successful or not.
+  - Upon Success: HTTP 200 Status Code is returned along with "Attribute was updated successfully is at minimum" if it exists.
+  - Upon Failure: HTTP 404 Status Code with "Department Not Found" if it doesn't exist.
 
+**Patch/dropStudentFromCourse**
+  - Parameters: deptCode (String), courseCode (int)
+  - Return: object with string displaying whether dropping is successful or not.
+  - Upon Success: HTTP 200 Status Code is returned along with "Student has been dropped." if it exists and student is dropped successfully.
+  - Upon Failure: 2 cases, HTTP 400 Status Code with "Student has not been dropped." if course exists but the student can't be dropped (reach minimum); HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
+
+**Patch/enrollStudentInCourse**
+  - Parameters: deptCode (String), courseCode (int)
+  - Return: object displaying whether enrolling is successful or not.
+  - Upon Success: HTTP 200 Status Code is returned along with "Student has been enrolled." if it exists and student is dropped successfully.
+  - Upon Failure: 2 cases, HTTP 400 Status Code with "Student has not been enrolled." if course exists but the student can't be enrolled (reach maximum); HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
+
+**Patch/setEnrollmentCount**
+  - Parameters: deptCode (String), courseCode (int), count (int)
+  - Return: object with string displaying whether setting count is successful or not.
+  - Upon Success: HTTP 200 Status Code is returned along with "Attributed was updated successfully." if it exists and student is dropped successfully.
+  - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
+
+**Patch/changeCourseTime**
+  - Parameters: deptCode (String), courseCode (int)
+  - Return: object with string displaying whether changing time is successful or not.
+  - Upon Success: HTTP 200 Status Code is returned along with "Attributed was updated successfully." if it exists.
+  - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
+
+**Patch/changeCourseTeacher**
+  - Parameters: deptCode (String), courseCode (int)
+  - Return: object with string displaying whether changing teacher is successful or not.
+  - Upon Success: HTTP 200 Status Code is returned along with "Attributed was updated successfully." if it exists.
+  - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
+  
+**Patch/changeCourseLocation**
+  - Parameters: deptCode (String), courseCode (int)
+  - Return: object with string displaying whether changing location is successful or not.
+  - Upon Success: HTTP 200 Status Code is returned along with "Attributed was updated successfully." if it exists.
+  - Upon Failure: HTTP 404 Status Code with "Course Not Found" if it doesn't exist.
 
 
 # I2 implementation:
