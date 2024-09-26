@@ -144,3 +144,5 @@ All the test file are under the directory 'src/test'.
     ![Screenshots of instance.](/screenshots/instance1.png)
 5. Add tests for exceptions testHandleRetrieveCourseException(), testHandleFindCourseTimeException() in RoutControllerTests..
     ![Screenshots of coverage.](/screenshots/coverage1.png)
+6. Checkstyle screen shot:
+    ![Screenshots of coverage.](/screenshots/checkstyle1.png)
