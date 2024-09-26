@@ -6,15 +6,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Spy;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
@@ -30,8 +28,11 @@ public class RouteControllerTests {
    */
   @BeforeEach
   public void setUp() {
+    //MyFileDatabase myFileDatabase;
+
     depMap = new HashMap<>();
     myFileDatabase = new MyFileDatabase(0, "./data.txt");
+    //myFileDatabase = Mockito.mock(MyFileDatabase.class);
     IndividualProjectApplication.overrideDatabase(myFileDatabase);
   }
 
@@ -406,22 +407,40 @@ public class RouteControllerTests {
             .andExpect(content().string("Course Not Found"));
   }
 
-  //  @Test
-  //  public void testHandleException() throws Exception {
-  //    when(myFileDatabase.getDepartmentMapping())
-  //          .thenThrow(new RuntimeException("Simulated exception"));
-  //
-  //    mockMvc.perform(get("/retrieveCourses")
-  //                    .param("courseCode", "1004"))
-  //            .andExpect(status().isInternalServerError())
-  //            .andExpect(content().string("An error occurred."));
-  //  }
+  @Test
+  public void testHandleRetrieveCourseException() throws Exception {
+    MyFileDatabase myFdb = Mockito.mock(MyFileDatabase.class);
+    IndividualProjectApplication.overrideDatabase(myFdb);
+    when(myFdb.getDepartmentMapping())
+          .thenThrow(new RuntimeException("Simulated exception"));
+
+
+    mockMvc.perform(get("/retrieveCourses")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("An Error has occurred"));
+    Mockito.verify(myFdb).getDepartmentMapping();
+  }
+
+  @Test
+  public void testHandleFindCourseTimeException() throws Exception {
+    MyFileDatabase myFdb = Mockito.mock(MyFileDatabase.class);
+    IndividualProjectApplication.overrideDatabase(myFdb);
+    when(myFdb.getDepartmentMapping())
+            .thenThrow(new RuntimeException("Simulated exception"));
+
+
+    mockMvc.perform(get("/findCourseTime")
+                    .param("deptCode", "COMS")
+                    .param("courseCode", "1004"))
+            .andExpect(status().isOk())
+            .andExpect(content().string("An Error has occurred"));
+    //Mockito.verify(myFDB).getDepartmentMapping();
+  }
 
   @Autowired
   private MockMvc mockMvc;
-  @Autowired
-  private ObjectMapper deptMapper;
-  @MockBean
+  @Mock
   private MyFileDatabase myFileDatabase;
   private HashMap<String, Department> depMap;
 }
