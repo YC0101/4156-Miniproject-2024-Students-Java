@@ -1,1 +1,19 @@
-This file records bug history.
+Course Class:
+1. Fixed getCourseLocation() returning instructorName instead of location.
+2. Fixed getInstructorName() returning courseLocation instead of Instructor name.
+3. Fixed isCourseFull() returning false while the course is full (changing > to <).
+4. Add if statement in enrollStudent to check if there is space available. Fixed the method will always return false error.
+5. Fixed dropStudent() only return false. Add checking if the enrolled student number is positive before dropping.
+
+Department Class:
+1. Fixed getNumberMajors() returning negative of number of major. (Remove "-")
+2. Fixed getDepartmentChair() returning "this.departmentChair" instead of the real chair name.
+3. Add if statement to dropPersonFromMajor to check if number of majors is greater than zero.
+4. Fixed toString() returning "result.toString()" instead of the real result.
+
+RouteController:
+1. Fixed retrieveDepartment return OK when not found and not found when found department.(Revert)
+2. Fixed retrieveCourse return Forbidden when found course.(Change to Ok)
+3. Fixed getMajorCtFromDept return negative number of major.(Remove "-")
+4. Fixed getMajorCtFromDept return Forbidden 403 when not found.(return not found 404 instead)
+5. Fixed findCourseTime not returning time and missing space before "some time "
