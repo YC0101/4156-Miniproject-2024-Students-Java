@@ -8,11 +8,11 @@
 		<version>3.2.2</version>
 		<relativePath/>
 	</parent>
-	<groupId>dev.coms4156.project</groupId>
-	<artifactId>IndividualProject</artifactId>
+	<groupId>dev.trader.project</groupId>
+	<artifactId>TraderProject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>IndividualProject</name>
-	<description>IndividualProject</description>
+	<name>TraderProject</name>
+	<description>TraderProject</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -27,7 +27,58 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- 安全与 JWT -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- 数据库（以 PostgreSQL 为例） -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<!-- JWE 支持（Nimbus JOSE） -->
+		<dependency>
+			<groupId>com.nimbusds</groupId>
+			<artifactId>nimbus-jose-jwt</artifactId>
+			<version>9.37</version>
+		</dependency>
+		
+		<!-- 交易所 API 客户端（示例） -->
+		<dependency>
+			<groupId>com.binance.api</groupId>
+			<artifactId>binance-api-client</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
 	</dependencies>
+
+	
 
 	<build>
 		<plugins>
@@ -94,7 +145,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>dev.coms4156.project.individualproject</mainClass>
+							<mainClass>dev.trader.project.individualproject</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
